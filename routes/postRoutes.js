@@ -37,7 +37,7 @@ router.get('/posts/:id/analysis', async(req, res) => {
             totalWordLength+=word.length;
         }
 
-        const avgWordLength = wordCount > 0 ? totalWordLength/wordCount : 0;
+        const avgWordLength = wordCount > 0 ? (totalWordLength/wordCount).toFixed(2) : 0;
         res.status(200).json({ wordCount,avgWordLength });
     } catch(err){
         console.error(err);

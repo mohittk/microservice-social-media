@@ -16,8 +16,15 @@ try {
     console.log(err);
 }
 
+const limiter = rateLimiter({
+    windowMs: 10*60*1000,
+    max: 150,
+    message: 'Too many requests, please try again!'
+})
+
 app.use(express.json());
 app.use('/api/v1/', postRoutes);
+app.use('/api/v1', limiter);
 
 app.listen(PORT, () => {
     console.log(`Listening to the PORT: ${PORT}`)
