@@ -55,4 +55,3 @@ router.get('/posts/:id/analysis', async (req, res) => {
 
 module.exports = router;
 
-//fault tplenac ecap
