@@ -13,14 +13,12 @@ redisClient.on('error', err => console.log('Redis Client Error', err));
 router.post('/posts', async (req, res) => {
     try {
         const { postContent, postId } = req.body;
-        console.log(postId);
         const newPost = new postSchema({ postId, postContent });
         await newPost.save();
         await redisClient.set(postId, postContent);
         res.status(201).json({ message: "Post creation successful" });
 
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: "Internal server error" })
     }
 })
@@ -29,7 +27,6 @@ router.post('/posts', async (req, res) => {
 router.get('/posts/:id/analysis', async (req, res) => {
     try {
         const postId = req.params.id;
-        // console.log(postId, '####');
         const cachedPostContent = await redisClient.get(postId);
         if (cachedPostContent) {
             const words = cachedPostContent.split(/\s+/).filter(word => word.length > 0);
@@ -51,7 +48,6 @@ router.get('/posts/:id/analysis', async (req, res) => {
 
         
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: "Internal Server error" });
 
     }
