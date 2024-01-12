@@ -4,10 +4,13 @@ const postSchema = new mongoose.Schema(
     {
         postId: {
             type: String,
-            unique: true
+            unique: true,
+            required: true
         },
         postContent: {
-            type: String
+            type: String,
+            required: true
+            
         }
     }
 )

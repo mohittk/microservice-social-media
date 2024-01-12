@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const postSchema = require('../models/postSchema');
-const { v4: uuidv4 } = require('uuid')
+const analysisUtils = require('../utils/analysisUtils');
 
+//create post route
 router.post('/posts', async(req, res) => {
     try {
-        const {postContent} = req.body;
-        const postId = uuidv4();
+        const {postContent, postId} = req.body;
         console.log(postId);
         const newPost = new postSchema({postId, postContent});
         await newPost.save();
@@ -18,10 +18,11 @@ router.post('/posts', async(req, res) => {
     }
 })
 
+//post analysis route
 router.get('/posts/:id/analysis', async(req, res) => {
     try {
         const postId = req.params.id;
-        console.log(postId, '####');
+        // console.log(postId, '####');
         const post = await postSchema.findOne({postId: postId});
 
         if(!post){
@@ -29,15 +30,7 @@ router.get('/posts/:id/analysis', async(req, res) => {
         }
 
         const words = post.postContent.split(/\s+/).filter(word => word.length > 0);
-        let wordCount = 0;
-        let totalWordLength = 0;
-
-        for(const word of words){
-            wordCount++;
-            totalWordLength+=word.length;
-        }
-
-        const avgWordLength = wordCount > 0 ? (totalWordLength/wordCount).toFixed(2) : 0;
+        const {wordCount, avgWordLength} = analysisUtils.calculateAverageWordLength(words);
         res.status(200).json({ wordCount,avgWordLength });
     } catch(err){
         console.error(err);
@@ -47,3 +40,5 @@ router.get('/posts/:id/analysis', async(req, res) => {
 })
 
 module.exports = router;
+
+//fault tplenac ecap
