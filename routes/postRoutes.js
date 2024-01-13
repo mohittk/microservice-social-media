@@ -4,7 +4,10 @@ const postSchema = require('../models/postSchema');
 const analysisUtils = require('../utils/analysisUtils');
 const { createClient } = require('redis');
 
-const redisClient = createClient();
+const redisClient = createClient({
+    host: 'localhost',
+    port: 6379,
+});
 redisClient.connect().catch(console.error);
 
 redisClient.on('error', err => console.log('Redis Client Error', err));
