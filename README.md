@@ -6,7 +6,17 @@
 3) Type <code>npm install</code>.
 4) create a <code>.env</code> file and add the details sent to you, without any spaces.
 5) Type <code>npm start</code>.
+## Live Demo testing of routes
 
+<div>
+    <a href="https://www.loom.com/share/105be23c02d049b8be4d85aac6707c16">
+      <p>Library | Loom - 13 January 2024 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/105be23c02d049b8be4d85aac6707c16">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/105be23c02d049b8be4d85aac6707c16-with-play.gif">
+    </a>
+  </div>
+  
 ## Infrastructure and Scaling write-up
 ### High level overview of the project:
 **Post Creation (POST /api/v1/posts/):**
